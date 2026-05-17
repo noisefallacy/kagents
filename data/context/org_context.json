@@ -1,0 +1,28 @@
+{
+  "acronyms": {
+    "PM": {
+      "meaning": "Portfolio Manager",
+      "notes": "Main user-facing agent role in this project."
+    },
+    "FR": {
+      "meaning": "Finance Review",
+      "notes": "A recurring finance review process or meeting."
+    }
+  },
+  "teams": {
+    "finance": {
+      "description": "Handles budgeting, forecasting, and performance review.",
+      "aliases": ["fin", "finance team"]
+    },
+    "platform": {
+      "description": "Maintains internal tooling and shared infrastructure.",
+      "aliases": ["platform team", "infra"]
+    }
+  },
+  "projects": {
+    "kagents": {
+      "description": "Custom agent project built on Google ADK first.",
+      "aliases": ["kagent", "agent project"]
+    }
+  }
+}

@@ -24,6 +24,9 @@ def resolve_project_path(path_value: str) -> str:
 class Settings:
     model: str = os.getenv("KAGENT_MODEL", "gemini-flash-latest")
     docs_dir: str = resolve_project_path(os.getenv("KAGENT_DOCS_DIR", "data/docs"))
+    org_context_path: str = resolve_project_path(
+        os.getenv("KAGENT_ORG_CONTEXT_PATH", "data/context/org_context.json")
+    )
     jquants_api_key: str | None = os.getenv("JQUANTS_API_KEY")
 
 

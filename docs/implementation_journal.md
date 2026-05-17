@@ -63,3 +63,16 @@ ADK learning:
   separate agent architecture.
 - `McpToolset` gives a clear extension path for future integrations such as
   J-Quants MCP without forcing an immediate rewrite of existing tools.
+
+### Internal org-context layer
+
+- Added a small structured org-context file for acronyms, team names, and
+  project aliases.
+- Added a `search_org_context` tool and connected it to `portfolio_manager`
+  for internal terminology questions.
+
+ADK learning:
+
+- Not all internal context should be treated as unstructured document search.
+- A small, explicit normalization layer can improve tool routing and answer
+  consistency without needing a heavier knowledge system.

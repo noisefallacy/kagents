@@ -1,44 +1,43 @@
 # kagents
 
-Custom agents built with Google ADK first, while keeping the project layout easy to adapt to an internal ADK-like interface later.
+Custom agents built with Google ADK first, while keeping the project layout
+easy to adapt to an internal ADK-like interface later.
 
 This repository is also a learning project for Google ADK. Ongoing notes are
 kept in [implementation_journal.md](C:/Users/kagin/kagents/docs/implementation_journal.md).
 
 ## Current MVP
 
-The first slice is a `doc_search` capability that can search local:
-
-- `.txt`
-- `.md`
-- `.pdf`
-- `.docx`
-- `.xlsx`
-- `.eml`
-
 The current user-facing entrypoint is `portfolio_manager`.
+
+It currently combines:
+
+- structured org context lookup for acronyms, team names, and project aliases
+- local document search across `.txt`, `.md`, `.pdf`, `.docx`, `.xlsx`, and `.eml`
+- J-Quants daily quote lookup
+- Google Search for current external information
 
 ## Project Layout
 
 ```text
 agents/
   doc_search/
-    agent.py               # specialist document-search agent
+    agent.py
   portfolio_manager/
-    agent.py               # main user-facing agent entrypoint
-src/
-  kagents/
-    config.py
-    document_store.py
-    cli.py
-    tools/
-      document_search.py
-scripts/
-  bootstrap_venv.ps1
-tests/
+    agent.py
 data/
+  context/
+    org_context.json
   docs/
 prompts/
+scripts/
+src/
+  kagents/
+    cli.py
+    config.py
+    document_store.py
+    tools/
+tests/
 ```
 
 ## Virtual Environment
@@ -61,56 +60,46 @@ Activate it in Git Bash:
 source .venv/Scripts/activate
 ```
 
+## Configuration
+
+Store local settings in `.env`.
+
+- `GOOGLE_API_KEY`: Gemini / ADK access
+- `KAGENT_MODEL`: model name for the ADK agent
+- `KAGENT_DOCS_DIR`: local document directory
+- `KAGENT_ORG_CONTEXT_PATH`: structured internal context file
+- `JQUANTS_API_KEY`: J-Quants API V2 key
+
 ## Local Usage
 
-Put documents under `data/docs/`, then run:
+Search local docs from the CLI:
 
 ```powershell
 .\.venv\Scripts\python.exe -m kagents.cli "quarterly revenue"
 ```
 
-Environment variables:
+## ADK Usage
 
-- `GOOGLE_API_KEY`: Gemini / ADK 用
-- `JQUANTS_API_KEY`: J-Quants API V2 用
-- `KAGENT_MODEL`: ADK で使うモデル名
-- `KAGENT_DOCS_DIR`: 文書検索対象ディレクトリ
+Run the ADK UI from the `agents` directory:
+
+```powershell
+cd .\agents
+..\.venv\Scripts\adk.exe web
+```
+
+Recommended entrypoints:
+
+- `portfolio_manager`: main user-facing agent
+- `doc_search`: specialist document-search agent
 
 Saved test prompts:
 
 - `doc_search`: [doc_search_test_prompts.md](C:/Users/kagin/kagents/prompts/doc_search_test_prompts.md)
 - `portfolio_manager`: [portfolio_manager_test_prompts.md](C:/Users/kagin/kagents/prompts/portfolio_manager_test_prompts.md)
 
-## ADK Usage
-
-Add your API key to `.env`, then run:
-
-```powershell
-.\.venv\Scripts\adk web
-```
-
-Recommended entrypoint:
-
-- `portfolio_manager`: main user-facing agent for natural business questions
-- `doc_search`: specialist document-search agent
-
-Example prompts for `portfolio_manager`:
-
-- `今の優先事項を教えて`
-- `finance チーム向けに何を準備する必要がありますか`
-- `この案件の次のアクションをまとめて`
-- `7203 の 2026-03-14 の終値を教えて`
-- `今日のトヨタに関する最新ニュースを教えて`
-
-Current tool coverage in `portfolio_manager`:
-
-- local document search
-- J-Quants daily quote lookup
-- Google Search for current external information
-
 ## Next Slices
 
-1. API tools for external data fetches
-2. Document indexing and chunking
+1. Broader market-data tools
+2. Better query reformulation for mixed Japanese and English requests
 3. Safe code execution tools
-4. Routing across search, API, and execution capabilities from the main agent
+4. Additional internal knowledge sources when access becomes available
