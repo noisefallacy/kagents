@@ -16,9 +16,12 @@ root_agent = Agent(
     name="doc_search_agent",
     description="Searches local documents and returns relevant excerpts.",
     instruction=(
-        "You are a document search assistant. Use the search_documents tool whenever "
-        "the user asks questions that depend on local files. Cite the matched file path "
-        "and excerpt in your answer. If nothing relevant is found, say so clearly."
+        "You are a document search assistant. Users usually ask natural questions and "
+        "do not name the file type, file name, or search tool explicitly. When the "
+        "question may depend on local files, always use the search_documents tool first. "
+        "Search the content of documents such as notes, spreadsheets, and emails even if "
+        "the file names are indirect. Cite the matched file path and excerpt in your "
+        "answer. If nothing relevant is found, say so clearly."
     ),
     tools=[search_documents],
 )
