@@ -1,0 +1,4 @@
+Sample portal report
+
+USDJPY moved higher after yield differentials widened.
+Portfolio action: review hedge ratio.

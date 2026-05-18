@@ -236,3 +236,51 @@ ADK learning:
   through data-driven style configuration.
 - Passing style choices as explicit tool arguments makes visual behavior visible
   in ADK traces and easier to evaluate later.
+
+### Guarded browser assistant
+
+- Added a `browser_assistant` specialist agent for Playwright browser workflows.
+- Added local browser task definitions under `data/browser_tasks/` and a local
+  sample web app under `data/browser_apps/` for reproducible automation tests.
+- Added a guarded `run_browser_task` tool that only runs named local workflows,
+  validates allowed URL prefixes, limits action types, and saves artifacts under
+  `outputs/browser/`.
+
+ADK learning:
+
+- Browser interaction is powerful enough to deserve a specialist agent rather
+  than being added directly to the main portfolio manager.
+- Local task definitions provide a practical bridge between rigid tools and
+  real web-app workflows while keeping ADK traces inspectable.
+
+### Agent server and Docker layout
+
+- Added a standard per-agent folder convention: `__init__.py`, `agent.py`,
+  `server.py`, and `documents/`.
+- Added a shared FastAPI wrapper that exposes an ADK `root_agent` through
+  `/health`, `/agent`, and `/run`.
+- Added a Dockerfile that installs `requirements.txt`, the local package, and
+  Playwright Chromium, serving `portfolio_manager` by default.
+
+ADK learning:
+
+- Keeping `agent.py` as the ADK definition and `server.py` as the deployment
+  wrapper separates agent design from serving concerns.
+- A consistent agent folder shape makes it easier to add specialist agents
+  without rethinking deployment each time.
+
+### Browser screenshots and TradingView workflow
+
+- Extended browser task actions with selector clicks, waits, keyboard input,
+  optional actions, indexed/last locator selection, and guarded screenshots.
+- Added a local screenshot sample task and a TradingView USDJPY 1h screenshot
+  task that changes the interval through the visible TradingView menu.
+- Verified the TradingView workflow end to end and confirmed the saved PNG shows
+  the `1h` interval.
+
+ADK learning:
+
+- Browser automation needs enough selector control to handle real web apps, but
+  the safest shape is still named workflows from local JSON.
+- Read-only screenshot workflows are a useful middle ground before allowing any
+  broader execution or form-submission behavior.

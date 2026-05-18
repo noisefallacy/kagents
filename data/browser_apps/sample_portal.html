@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample Research Portal</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 32px;
+        color: #111827;
+      }
+      main {
+        max-width: 840px;
+      }
+      button {
+        margin: 8px 8px 8px 0;
+        padding: 8px 12px;
+      }
+      section {
+        border-top: 1px solid #d1d5db;
+        margin-top: 20px;
+        padding-top: 16px;
+      }
+      [hidden] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Sample Research Portal</h1>
+      <p id="summary">
+        This local app simulates a private research portal for browser automation tests.
+      </p>
+      <button type="button" id="market-button">Show Market Note</button>
+      <button type="button" id="risk-button">Show Risk Note</button>
+      <section id="market-note" hidden>
+        <h2>Market Note</h2>
+        <p>USDJPY moved higher after yield differentials widened. Portfolio action: review hedge ratio.</p>
+        <a href="sample_report.txt" download>Download report</a>
+      </section>
+      <section id="risk-note" hidden>
+        <h2>Risk Note</h2>
+        <p>Concentration risk increased in export-sensitive holdings. Portfolio action: prepare scenario analysis.</p>
+      </section>
+    </main>
+    <script>
+      document.getElementById("market-button").addEventListener("click", () => {
+        document.getElementById("market-note").hidden = false;
+      });
+      document.getElementById("risk-button").addEventListener("click", () => {
+        document.getElementById("risk-note").hidden = false;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "tasks": [
+    {
+      "name": "sample_portal_market_note",
+      "description": "Open the local sample portal, reveal the market note, and extract visible page text.",
+      "start_url": "file://data/browser_apps/sample_portal.html",
+      "allowed_url_prefixes": [
+        "file://data/browser_apps/"
+      ],
+      "actions": [
+        {
+          "type": "click_text",
+          "text": "Show Market Note"
+        },
+        {
+          "type": "extract_text",
+          "selector": "body"
+        }
+      ],
+      "output_dir": "outputs/browser/sample_portal_market_note"
+    },
+    {
+      "name": "sample_portal_market_note_screenshot",
+      "description": "Open the local sample portal, reveal the market note, and save a screenshot.",
+      "start_url": "file://data/browser_apps/sample_portal.html",
+      "allowed_url_prefixes": [
+        "file://data/browser_apps/"
+      ],
+      "actions": [
+        {
+          "type": "click_text",
+          "text": "Show Market Note"
+        },
+        {
+          "type": "screenshot",
+          "path": "outputs/browser/sample_portal_market_note_screenshot/market_note_{timestamp}.png"
+        }
+      ],
+      "output_dir": "outputs/browser/sample_portal_market_note_screenshot"
+    },
+    {
+      "name": "tradingview_usdjpy_1h_screenshot",
+      "description": "Open TradingView USDJPY, switch the chart interval to 1 hour, and save a screenshot.",
+      "start_url": "https://www.tradingview.com/chart/?symbol=FX_IDC%3AUSDJPY",
+      "allowed_url_prefixes": [
+        "https://www.tradingview.com/"
+      ],
+      "actions": [
+        {
+          "type": "wait_ms",
+          "milliseconds": 8000
+        },
+        {
+          "type": "click_text",
+          "text": "Accept all",
+          "exact": false,
+          "optional": true
+        },
+        {
+          "type": "click_selector",
+          "selector": "button[aria-label=\"1 day\"]",
+          "last": true
+        },
+        {
+          "type": "click_text",
+          "text": "1 hour",
+          "exact": true,
+          "last": true
+        },
+        {
+          "type": "wait_ms",
+          "milliseconds": 2000
+        },
+        {
+          "type": "screenshot",
+          "path": "outputs/browser/tradingview/usdjpy_1h_{timestamp}.png"
+        }
+      ],
+      "output_dir": "outputs/browser/tradingview"
+    }
+  ]
+}

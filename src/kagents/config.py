@@ -42,6 +42,9 @@ class Settings:
     chart_styles_path: str = resolve_project_path(
         os.getenv("KAGENT_CHART_STYLES_PATH", "data/context/chart_styles.json")
     )
+    browser_tasks_path: str = resolve_project_path(
+        os.getenv("KAGENT_BROWSER_TASKS_PATH", "data/browser_tasks/browser_tasks.json")
+    )
     jquants_api_key: str | None = os.getenv("JQUANTS_API_KEY")
     lseg_session_method: str = os.getenv("LSEG_SESSION_METHOD", "remote")
     lseg_app_key: str | None = os.getenv("LSEG_APP_KEY")

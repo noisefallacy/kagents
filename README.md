@@ -24,18 +24,31 @@ It currently combines:
 - Google Search for current external information
 - guarded PNG chart generation under `outputs/`
 - direct LSEG FX history retrieval and plotting for allowlisted pairs
+- guarded Playwright browser workflows from local task definitions
 
 ## Project Layout
 
 ```text
 agents/
   artifact_assistant/
+    documents/
     agent.py
+    server.py
+  browser_assistant/
+    documents/
+    agent.py
+    server.py
   doc_search/
+    documents/
     agent.py
+    server.py
   portfolio_manager/
+    documents/
     agent.py
+    server.py
 data/
+  browser_apps/
+  browser_tasks/
   context/
     org_context.json
   docs/
@@ -84,6 +97,7 @@ Store local settings in `.env`.
 - `KAGENT_OPERATING_RULES_PATH`: data-first operating rules
 - `KAGENT_TOOL_PREFERENCES_PATH`: tool usage preferences and routing hints
 - `KAGENT_CHART_STYLES_PATH`: named PNG chart styles
+- `KAGENT_BROWSER_TASKS_PATH`: allowlisted browser workflow definitions
 - `JQUANTS_API_KEY`: J-Quants API V2 key
 - `LSEG_SESSION_METHOD`: `remote` or `desktop`
 - `LSEG_APP_KEY`: LSEG platform app key for remote sessions
@@ -107,9 +121,29 @@ cd .\agents
 ..\.venv\Scripts\adk.exe web
 ```
 
+Run a single agent as a FastAPI app:
+
+```powershell
+.\.venv\Scripts\uvicorn.exe agents.portfolio_manager.server:app --host 0.0.0.0 --port 8000
+```
+
+Every agent directory follows the same runtime shape:
+
+```text
+__init__.py
+agent.py
+server.py
+documents/
+```
+
+`server.py` wraps that folder's ADK `root_agent` in a small FastAPI app with
+`/health`, `/agent`, and `/run` endpoints. `documents/` is reserved for data
+that belongs to that specific agent.
+
 Recommended entrypoints:
 
 - `portfolio_manager`: main user-facing agent
+- `browser_assistant`: guarded Playwright browser workflows
 - `doc_search`: specialist document-search agent
 - `artifact_assistant`: guarded PNG chart generation
 
@@ -138,6 +172,54 @@ Plot USDJPY from 2026-01-01 to 2026-03-31 using the presentation style and save 
 
 `portfolio_manager` can also route this request directly; you do not need to
 switch to `artifact_assistant` for allowlisted FX plots.
+
+Run the sample local browser workflow through `browser_assistant`:
+
+```text
+List browser tasks, then run sample_portal_market_note.
+```
+
+Browser workflows are configured in `data/browser_tasks/browser_tasks.json`.
+The included sample opens `data/browser_apps/sample_portal.html`, clicks
+`Show Market Note`, extracts visible page text, and saves artifacts under
+`outputs/browser/`. To run Playwright locally for the first time, install the
+browser binary after installing requirements:
+
+```powershell
+.\.venv\Scripts\python.exe -m playwright install chromium
+```
+
+Take a TradingView USDJPY 1h screenshot:
+
+```text
+Run tradingview_usdjpy_1h_screenshot.
+```
+
+The browser task runner currently supports read-only workflow actions such as
+`wait_for_selector`, `wait_ms`, `click_text`, `click_selector`,
+`fill_selector`, `press_key`, `extract_text`, and `screenshot`. Screenshots are
+restricted to that task's folder under `outputs/browser/`.
+
+## Docker
+
+Build the container:
+
+```powershell
+docker build -t kagents .
+```
+
+Run the default `portfolio_manager` server:
+
+```powershell
+docker run --env-file .env -p 8000:8000 kagents
+```
+
+The Dockerfile installs `requirements.txt`, the local package, and Playwright
+Chromium. To serve a different agent, override the command, for example:
+
+```powershell
+docker run --env-file .env -p 8000:8000 kagents uvicorn agents.browser_assistant.server:app --host 0.0.0.0 --port 8000
+```
 
 ## Next Slices
 

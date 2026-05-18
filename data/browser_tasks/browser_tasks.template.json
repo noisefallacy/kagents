@@ -1,0 +1,36 @@
+{
+  "tasks": [
+    {
+      "name": "replace_with_task_name",
+      "description": "Describe the approved browser workflow.",
+      "start_url": "https://approved.example.com/app",
+      "allowed_url_prefixes": [
+        "https://approved.example.com/"
+      ],
+      "actions": [
+        {
+          "type": "wait_for_selector",
+          "selector": "main",
+          "state": "visible"
+        },
+        {
+          "type": "click_text",
+          "text": "Button label"
+        },
+        {
+          "type": "click_selector",
+          "selector": "[data-name='example']"
+        },
+        {
+          "type": "extract_text",
+          "selector": "body"
+        },
+        {
+          "type": "screenshot",
+          "path": "outputs/browser/replace_with_task_name/screenshot_{timestamp}.png"
+        }
+      ],
+      "output_dir": "outputs/browser/replace_with_task_name"
+    }
+  ]
+}
