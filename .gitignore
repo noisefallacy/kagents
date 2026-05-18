@@ -7,3 +7,5 @@ __pycache__/
 *.pyc
 data/docs/*
 !data/docs/.gitkeep
+outputs/*
+!outputs/.gitkeep

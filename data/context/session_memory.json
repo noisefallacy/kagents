@@ -1,0 +1,21 @@
+{
+  "memories": [
+    {
+      "id": "mem_sample_finance_review",
+      "type": "decision",
+      "summary": "Finance Review should focus on forecast changes, budget risks, and next actions.",
+      "details": "Use this sample memory to test questions about what was decided last time for the finance review.",
+      "tags": [
+        "finance",
+        "review",
+        "forecast",
+        "budget"
+      ],
+      "visibility": "private",
+      "confidence": "medium",
+      "source": "sample",
+      "created_at": "2026-05-18T00:00:00+00:00",
+      "updated_at": "2026-05-18T00:00:00+00:00"
+    }
+  ]
+}

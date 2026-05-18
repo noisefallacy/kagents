@@ -1,0 +1,21 @@
+{
+  "memories": [
+    {
+      "id": "mem_replace_with_stable_id",
+      "type": "decision",
+      "summary": "Short memory summary for retrieval and display.",
+      "details": "Optional supporting details. Keep private operational facts here rather than in code.",
+      "tags": [
+        "replace",
+        "with",
+        "useful",
+        "tags"
+      ],
+      "visibility": "private",
+      "confidence": "medium",
+      "source": "manual",
+      "created_at": "2026-05-18T00:00:00+00:00",
+      "updated_at": "2026-05-18T00:00:00+00:00"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tool_preferences": [
+    {
+      "id": "tool_replace_me",
+      "summary": "Describe when a tool should or should not be used.",
+      "tool": "replace_with_tool_name",
+      "applies_to": [
+        "replace_with_query_or_task_category"
+      ],
+      "priority": "medium"
+    }
+  ]
+}

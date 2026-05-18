@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "id": "rule_do_not_invent_private_data",
+      "summary": "Do not invent private/internal data. If configured data does not contain the answer, say which source is missing.",
+      "applies_to": [
+        "all"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "rule_explicit_memory_writes",
+      "summary": "Only write durable memory when the user explicitly asks to remember something or confirms a proposed memory.",
+      "applies_to": [
+        "session_memory"
+      ],
+      "priority": "high"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "profile_id": "replace_with_user_or_team_id",
+  "preferences": [
+    {
+      "id": "pref_replace_me",
+      "summary": "Describe a stable answer, format, or decision-making preference.",
+      "tags": [
+        "style"
+      ],
+      "priority": "medium"
+    }
+  ],
+  "working_style": [
+    {
+      "id": "style_replace_me",
+      "summary": "Describe how the agent should collaborate with this user or team.",
+      "tags": [
+        "collaboration"
+      ],
+      "priority": "medium"
+    }
+  ]
+}

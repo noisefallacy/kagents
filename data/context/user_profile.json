@@ -1,0 +1,26 @@
+{
+  "profile_id": "default",
+  "preferences": [
+    {
+      "id": "pref_concise_evidence",
+      "summary": "Prefer concise answers with concrete next actions and cited evidence.",
+      "tags": [
+        "style",
+        "answers",
+        "evidence"
+      ],
+      "priority": "high"
+    }
+  ],
+  "working_style": [
+    {
+      "id": "style_data_first",
+      "summary": "Private internal knowledge should live in replaceable data files rather than hard-coded behavior.",
+      "tags": [
+        "architecture",
+        "data-first"
+      ],
+      "priority": "high"
+    }
+  ]
+}

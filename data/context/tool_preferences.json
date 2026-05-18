@@ -1,0 +1,23 @@
+{
+  "tool_preferences": [
+    {
+      "id": "tool_private_context_first",
+      "summary": "Use private context loading before answering portfolio-manager questions.",
+      "tool": "load_private_context",
+      "applies_to": [
+        "business_questions",
+        "internal_context"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "tool_web_for_current_public_facts",
+      "summary": "Use web search for current public facts, latest news, or information likely to have changed.",
+      "tool": "GoogleSearchTool",
+      "applies_to": [
+        "current_public_information"
+      ],
+      "priority": "high"
+    }
+  ]
+}
