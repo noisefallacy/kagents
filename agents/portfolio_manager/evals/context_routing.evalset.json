@@ -1,0 +1,425 @@
+{
+  "eval_set_id": "portfolio_manager_context_routing",
+  "name": "Portfolio manager context routing examples",
+  "description": "Starter ADK eval cases for checking context planning and follow-up tool trajectories.",
+  "eval_cases": [
+    {
+      "eval_id": "org_acronym_routes_to_org_context",
+      "conversation": [
+        {
+          "invocation_id": "e-org-acronym-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What does FR mean?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "FR means Finance Review. In the local org context, it is described as a recurring finance review process or meeting."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "What does FR mean?"
+                }
+              },
+              {
+                "name": "search_org_context",
+                "args": {
+                  "query": "What does FR mean?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "business_status_routes_to_documents",
+      "conversation": [
+        {
+          "invocation_id": "e-doc-status-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What are the current project risks and next steps?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I should use private project documents for this question. If no relevant local document evidence is available, I should say that clearly rather than inventing risks or next steps."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "What are the current project risks and next steps?"
+                }
+              },
+              {
+                "name": "search_documents",
+                "args": {
+                  "query": "What are the current project risks and next steps?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "security_quote_routes_to_market_data",
+      "conversation": [
+        {
+          "invocation_id": "e-market-quote-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Show me the close price for 7203 on 2026-02-20."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I should use J-Quants market data for security code 7203 on 2026-02-20, and report the returned quote or the API/configuration error if the quote cannot be fetched."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "Show me the close price for 7203 on 2026-02-20."
+                }
+              },
+              {
+                "name": "get_jquants_daily_quote",
+                "args": {
+                  "code": "7203",
+                  "target_date": "2026-02-20"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "latest_news_routes_to_web",
+      "conversation": [
+        {
+          "invocation_id": "e-web-news-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Tell me the latest public news about Toyota today."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I should use web search for latest public Toyota news and include source links for any current external claims."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "Tell me the latest public news about Toyota today."
+                }
+              },
+              {
+                "name": "google_search",
+                "args": {
+                  "query": "latest public news about Toyota today"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "fx_plot_routes_to_lseg_not_web",
+      "conversation": [
+        {
+          "invocation_id": "e-lseg-fx-plot-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Plot USDJPY from 2024-05-01 to 2024-05-03 and save it to outputs/usdjpy.png."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I should use LSEG FX history and create a guarded PNG chart under outputs/usdjpy.png, not Google Search."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "Plot USDJPY from 2024-05-01 to 2024-05-03 and save it to outputs/usdjpy.png."
+                }
+              },
+              {
+                "name": "plot_lseg_fx_history",
+                "args": {
+                  "pair": "USDJPY",
+                  "start_date": "2024-05-01",
+                  "end_date": "2024-05-03",
+                  "output_path": "outputs/usdjpy.png"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "prior_decision_surfaces_session_memory_gap",
+      "conversation": [
+        {
+          "invocation_id": "e-session-memory-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What did we decide last time about the finance review?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "This question needs prior session memory and finance-review context. I should use local session memory along with available org/document context, then clearly say when I cannot confirm the prior decision."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "What did we decide last time about the finance review?"
+                }
+              },
+              {
+                "name": "search_org_context",
+                "args": {
+                  "query": "finance review"
+                }
+              },
+              {
+                "name": "search_session_memory",
+                "args": {
+                  "query": "What did we decide last time about the finance review?"
+                }
+              },
+              {
+                "name": "search_documents",
+                "args": {
+                  "query": "finance review prior decision"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "explicit_remember_request_writes_memory",
+      "conversation": [
+        {
+          "invocation_id": "e-memory-write-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Remember that finance review updates should be concise and evidence-backed."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I remembered that finance review updates should be concise and evidence-backed."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "remember_session_fact",
+                "args": {
+                  "summary": "Finance review updates should be concise and evidence-backed.",
+                  "memory_type": "preference",
+                  "tags": [
+                    "finance",
+                    "review",
+                    "updates"
+                  ]
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "growth_context_applies_missing_private_data_rule",
+      "conversation": [
+        {
+          "invocation_id": "e-growth-missing-data-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What are our internal API endpoint rules for portfolio reporting?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I should load growth and private context first, then avoid inventing missing internal API endpoint rules. If configured data does not contain them, I should say which data source needs to be updated."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "load_private_context",
+                "args": {
+                  "query": "What are our internal API endpoint rules for portfolio reporting?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "forget_request_deletes_memory_by_id",
+      "conversation": [
+        {
+          "invocation_id": "e-memory-forget-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Forget memory mem_eval_delete_candidate."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I could not find memory mem_eval_delete_candidate, so no stored memory was removed."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "forget_session_memory",
+                "args": {
+                  "memory_id": "mem_eval_delete_candidate"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "portfolio_manager",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    }
+  ]
+}
